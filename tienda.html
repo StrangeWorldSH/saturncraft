@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda | SaturnCraft</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(18, 24, 38, 0.7);
+            --primary: #8a2be2;
+            --accent: #00ffff;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border-glow: rgba(138, 43, 226, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(138, 43, 226, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(0, 255, 255, 0.1) 0%, transparent 40%);
+            background-attachment: fixed;
+            overflow-x: hidden;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-container img {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 8px rgba(138, 43, 226, 0.5));
+        }
+
+        .logo-container span {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: 0.5px;
+        }
+
+        .logo-container span span {
+            color: var(--accent);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--accent);
+        }
+
+        .btn-discord-nav {
+            background: #5865F2;
+            color: white !important;
+            padding: 8px 18px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600 !important;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn-discord-nav:hover {
+            background: #4752C4;
+            transform: translateY(-2px);
+        }
+
+        .store-header {
+            text-align: center;
+            padding: 160px 20px 40px 20px;
+        }
+
+        .store-header h1 {
+            font-size: 2.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #fff 30%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .store-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .ranks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 20px 80px 20px;
+        }
+
+        .rank-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 30px 25px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .rank-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--border-glow);
+            box-shadow: 0 12px 35px rgba(138, 43, 226, 0.2);
+        }
+
+        .rank-card.featured {
+            border-color: var(--accent);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.15);
+        }
+
+        .rank-card.featured::before {
+            content: '¡MÁS POPULAR!';
+            position: absolute;
+            top: 15px;
+            right: -30px;
+            background: var(--accent);
+            color: #0b0f19;
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 4px 30px;
+            transform: rotate(45deg);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .rank-header {
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 20px;
+        }
+
+        .rank-header i {
+            font-size: 2.2rem;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .rank-header h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .rank-price {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #10b981;
+        }
+
+        .rank-features {
+            list-style: none;
+            margin-bottom: 30px;
+            flex-grow: 1;
+        }
+
+        .rank-features li {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .rank-features li i {
+            color: var(--accent);
+            font-size: 0.85rem;
+        }
+
+        .buy-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            text-align: center;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--primary), #6a1b9a);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: opacity 0.3s, transform 0.2s;
+        }
+
+        .buy-btn:hover {
+            opacity: 0.9;
+            transform: scale(1.02);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            header {
+                padding: 15px 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo-container">
+            <img src="logo.png" alt="SaturnCraft Logo">
+            <span>Saturn<span>Craft</span></span>
+        </a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="tienda.html" class="active">Tienda</a></li>
+                <li><a href="comunidad.html">Comunidad</a></li>
+                <li><a href="https://discord.gg/ZmunNF9agy" target="_blank" class="btn-discord-nav">
+                    <i class="fab fa-discord"></i> Discord
+                </a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="store-header">
+        <h1>Tienda Oficial</h1>
+        <p>Adquiere rangos exclusivos y mejora tu experiencia en SaturnCraft. ¡Apoya al servidor!</p>
+    </section>
+
+    <section class="ranks-grid">
+        <div class="rank-card">
+            <div class="rank-header">
+                <i class="fas fa-star"></i>
+                <h3>Rango Star</h3>
+                <div class="rank-price">$3.99 USD</div>
+            </div>
+            <ul class="rank-features">
+                <li><i class="fas fa-check"></i> Kit /kit star exclusivo</li>
+                <li><i class="fas fa-check"></i> Prefijo [Star] en el chat</li>
+                <li><i class="fas fa-check"></i> 1x Set de herramientas</li>
+                <li><i class="fas fa-check"></i> 2x Homes adicionales</li>
+            </ul>
+            <a href="https://discord.gg/ZmunNF9agy" target="_blank" class="buy-btn">Comprar</a>
+        </div>
+
+        <div class="rank-card">
+            <div class="rank-header">
+                <i class="fas fa-globe"></i>
+                <h3>Rango Planet</h3>
+                <div class="rank-price">$7.99 USD</div>
+            </div>
+            <ul class="rank-features">
+                <li><i class="fas fa-check"></i> Todo lo del rango Star</li>
+                <li><i class="fas fa-check"></i> Kit /kit planet mejorado</li>
+                <li><i class="fas fa-check"></i> Prefijo [Planet] personalizado</li>
+                <li><i class="fas fa-check"></i> Comando /feed (curar hambre)</li>
+                <li><i class="fas fa-check"></i> 4x Homes adicionales</li>
+            </ul>
+            <a href="https://discord.gg/ZmunNF9agy" target="_blank" class="buy-btn">Comprar</a>
+        </div>
+
+        <div class="rank-card">
+            <div class="rank-header">
+                <i class="fas fa-rocket"></i>
+                <h3>Rango Space</h3>
+                <div class="rank-price">$14.99 USD</div>
+            </div>
+            <ul class="rank-features">
+                <li><i class="fas fa-check"></i> Todo lo del rango Planet</li>
+                <li><i class="fas fa-check"></i> Kit /kit space avanzado</li>
+                <li><i class="fas fa-check"></i> Prefijo [Space] en color</li>
+                <li><i class="fas fa-check"></i> Comandos /feed y /heal</li>
+                <li><i class="fas fa-check"></i> Acceso a yunque portátil</li>
+                <li><i class="fas fa-check"></i> 7x Homes adicionales</li>
+            </ul>
+            <a href="https://discord.gg/ZmunNF9agy" target="_blank" class="buy-btn">Comprar</a>
+        </div>
+
+        <div class="rank-card">
+            <div class="rank-header">
+                <i class="fas fa-ring"></i>
+                <h3>Rango Saturn</h3>
+                <div class="rank-price">$24.99 USD</div>
+            </div>
+            <ul class="rank-features">
+                <li><i class="fas fa-check"></i> Todo lo del rango Space</li>
+                <li><i class="fas fa-check"></i> Kit /kit saturn épico</li>
+                <li><i class="fas fa-check"></i> Prefijo [Saturn] exclusivo</li>
+                <li><i class="fas fa-check"></i> Comandos /fly en tu parcela/claim</li>
+                <li><i class="fas fa-check"></i> Cofre ender portátil (/ec)</li>
+                <li><i class="fas fa-check"></i> 12x Homes adicionales</li>
+            </ul>
+            <a href="https://discord.gg/ZmunNF9agy" target="_blank" class="buy-btn">Comprar</a>
+        </div>
+
+        <div class="rank-card featured">
+            <div class="rank-header">
+                <i class="fas fa-meteor"></i>
+                <h3>Supernova</h3>
+                <div class="rank-price">$39.99 USD</div>
+            </div>
+            <ul class="rank-features">
+                <li><i class="fas fa-check"></i> Acceso a TODOS los kits anteriores</li>
+                <li><i class="fas fa-check"></i> Kit /kit supernova legendario</li>
+                <li><i class="fas fa-check"></i> Prefijo [Supernova] animado</li>
+                <li><i class="fas fa-check"></i> /fly global en mundos survival</li>
+                <li><i class="fas fa-check"></i> Comandos /feed, /heal, /ec y /craft</li>
+                <li><i class="fas fa-check"></i> Homes ilimitadas y máxima prioridad</li>
+            </ul>
+            <a href="https://discord.gg/ZmunNF9agy" target="_blank" class="buy-btn">Comprar</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 SaturnCraft. Todos los derechos reservados. No afiliado con Mojang AB.</p>
+    </footer>
+
+</body>
+</html>

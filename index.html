@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaturnCraft | Servidor de Minecraft</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(18, 24, 38, 0.7);
+            --primary: #8a2be2;
+            --accent: #00ffff;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border-glow: rgba(138, 43, 226, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(138, 43, 226, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(0, 255, 255, 0.1) 0%, transparent 40%);
+            background-attachment: fixed;
+            overflow-x: hidden;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-container img {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 8px rgba(138, 43, 226, 0.5));
+        }
+
+        .logo-container span {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: 0.5px;
+        }
+
+        .logo-container span span {
+            color: var(--accent);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--accent);
+        }
+
+        .btn-discord-nav {
+            background: #5865F2;
+            color: white !important;
+            padding: 8px 18px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600 !important;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn-discord-nav:hover {
+            background: #4752C4;
+            transform: translateY(-2px);
+        }
+
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 180px 20px 100px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+            line-height: 1.2;
+            background: linear-gradient(135deg, #fff 30%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            max-width: 600px;
+        }
+
+        .ip-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border-glow);
+            padding: 12px 24px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            margin-bottom: 50px;
+        }
+
+        .ip-box:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .ip-box code {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--accent);
+            letter-spacing: 1px;
+        }
+
+        .ip-box i {
+            color: var(--text-muted);
+            transition: color 0.3s;
+        }
+
+        .ip-box:hover i {
+            color: var(--accent);
+        }
+
+        .sections-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px 100px 20px;
+        }
+
+        .card-section {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 35px 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .card-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card-section:hover {
+            transform: translateY(-5px);
+            border-color: var(--border-glow);
+            box-shadow: 0 10px 30px rgba(138, 43, 226, 0.15);
+        }
+
+        .card-section:hover::before {
+            opacity: 1;
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .card-section h3 {
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .card-section p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .card-btn {
+            display: inline-block;
+            padding: 10px 24px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--primary), #6a1b9a);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: opacity 0.3s, transform 0.2s;
+        }
+
+        .card-btn:hover {
+            opacity: 0.9;
+            transform: scale(1.03);
+        }
+
+        .copy-toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #10b981;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 2000;
+        }
+
+        .copy-toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            .hero h1 {
+                font-size: 2.4rem;
+            }
+            header {
+                padding: 15px 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo-container">
+            <img src="logo.png" alt="SaturnCraft Logo">
+            <span>Saturn<span>Craft</span></span>
+        </a>
+        <nav>
+            <ul>
+                <li><a href="index.html" class="active">Inicio</a></li>
+                <li><a href="tienda.html">Tienda</a></li>
+                <li><a href="comunidad.html">Comunidad</a></li>
+                <li><a href="https://discord.gg/ZmunNF9agy" target="_blank" class="btn-discord-nav">
+                    <i class="fab fa-discord"></i> Discord
+                </a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Explora el cosmos en SaturnCraft</h1>
+        <p>Una experiencia survival única, con mecánicas personalizadas, rangos increíbles y una comunidad activa esperándote.</p>
+        
+        <div class="ip-box" onclick="copiarIP()">
+            <i class="fas fa-server"></i>
+            <code>saturncraft.aternos.me</code>
+            <i class="fas fa-copy" id="copy-icon"></i>
+        </div>
+    </section>
+
+    <section class="sections-grid">
+        <div class="card-section">
+            <div class="card-icon"><i class="fas fa-crown"></i></div>
+            <h3>Comprar Rangos</h3>
+            <p>Mejora tu experiencia de juego, desbloquea kits exclusivos, comandos especiales y apoya al crecimiento del servidor.</p>
+            <a href="tienda.html" class="card-btn">Ver Tienda</a>
+        </div>
+
+        <div class="card-section">
+            <div class="card-icon"><i class="fas fa-users"></i></div>
+            <h3>Comunidad</h3>
+            <p>Únete a nuestro servidor de Discord y redes sociales para enterarte de las últimas noticias, eventos y sorteos.</p>
+            <a href="comunidad.html" class="card-btn" style="background: #5865F2;"><i class="fab fa-discord"></i> Ir a Comunidad</a>
+        </div>
+    </section>
+
+    <div class="copy-toast" id="toast">
+        <i class="fas fa-check-circle"></i> ¡IP copiada al portapapeles!
+    </div>
+
+    <footer>
+        <p>&copy; 2026 SaturnCraft. Todos los derechos reservados. No afiliado con Mojang AB.</p>
+    </footer>
+
+    <script>
+        function copiarIP() {
+            const ip = "saturncraft.aternos.me";
+            navigator.clipboard.writeText(ip).then(() => {
+                const toast = document.getElementById("toast");
+                toast.classList.add("show");
+                setTimeout(() => {
+                    toast.classList.remove("show");
+                }, 2500);
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comunidad | SaturnCraft</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(18, 24, 38, 0.7);
+            --primary: #8a2be2;
+            --accent: #00ffff;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border-glow: rgba(138, 43, 226, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(138, 43, 226, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(0, 255, 255, 0.1) 0%, transparent 40%);
+            background-attachment: fixed;
+            overflow-x: hidden;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-container img {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 8px rgba(138, 43, 226, 0.5));
+        }
+
+        .logo-container span {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: 0.5px;
+        }
+
+        .logo-container span span {
+            color: var(--accent);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--accent);
+        }
+
+        .btn-discord-nav {
+            background: #5865F2;
+            color: white !important;
+            padding: 8px 18px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600 !important;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn-discord-nav:hover {
+            background: #4752C4;
+            transform: translateY(-2px);
+        }
+
+        .community-header {
+            text-align: center;
+            padding: 160px 20px 40px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .community-header h1 {
+            font-size: 2.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #fff 30%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+
+        .community-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px 20px 80px 20px;
+        }
+
+        .social-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 35px 25px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .social-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--border-glow);
+            box-shadow: 0 12px 35px rgba(138, 43, 226, 0.2);
+        }
+
+        .social-card.discord:hover { border-color: #5865F2; box-shadow: 0 12px 35px rgba(88, 101, 242, 0.25); }
+        .social-card.tiktok:hover { border-color: #fe2c55; box-shadow: 0 12px 35px rgba(254, 44, 85, 0.25); }
+        .social-card.instagram:hover { border-color: #e1306c; box-shadow: 0 12px 35px rgba(225, 48, 108, 0.25); }
+        .social-card.twitter:hover { border-color: #ffffff; box-shadow: 0 12px 35px rgba(255, 255, 255, 0.2); }
+        .social-card.youtube:hover { border-color: #ff0000; box-shadow: 0 12px 35px rgba(255, 0, 0, 0.25); }
+
+        .social-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .discord .social-icon { color: #5865F2; }
+        .tiktok .social-icon { color: #fe2c55; }
+        .instagram .social-icon { color: #e1306c; }
+        .twitter .social-icon { color: #f3f4f6; }
+        .youtube .social-icon { color: #ff0000; }
+
+        .social-card h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .social-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+
+        .social-btn {
+            display: inline-block;
+            padding: 10px 22px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.3s, transform 0.2s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-card:hover .social-btn {
+            background: var(--primary);
+            border-color: transparent;
+            transform: scale(1.03);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            header {
+                padding: 15px 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo-container">
+            <img src="logo.png" alt="SaturnCraft Logo">
+            <span>Saturn<span>Craft</span></span>
+        </a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="tienda.html">Tienda</a></li>
+                <li><a href="comunidad.html" class="active">Comunidad</a></li>
+                <li><a href="https://discord.gg/ZmunNF9agy" target="_blank" class="btn-discord-nav">
+                    <i class="fab fa-discord"></i> Discord
+                </a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="community-header">
+        <h1>Únete a Nuestra Comunidad</h1>
+        <p>Forma parte de la familia SaturnCraft. Síguenos en nuestras redes sociales para enterarte de eventos exclusivos, actualizaciones, directos y contenido épico del servidor.</p>
+    </section>
+
+    <section class="social-grid">
+        <a href="https://discord.gg/ZmunNF9agy" target="_blank" class="social-card discord">
+            <div class="social-icon"><i class="fab fa-discord"></i></div>
+            <h3>Discord</h3>
+            <p>El núcleo de nuestra comunidad. Habla con otros jugadores, recibe soporte, participa en sorteos y entérate de las novedades.</p>
+            <span class="social-btn">Unirse al Servidor</span>
+        </a>
+
+        <a href="https://youtube.com" target="_blank" class="social-card youtube">
+            <div class="social-icon"><i class="fab fa-youtube"></i></div>
+            <h3>YouTube</h3>
+            <p>Mira los trailers oficiales, gameplays destacados, tutoriales y videos sobre las actualizaciones del servidor.</p>
+            <span class="social-btn">Suscribirse</span>
+        </a>
+
+        <a href="https://tiktok.com" target="_blank" class="social-card tiktok">
+            <div class="social-icon"><i class="fab fa-tiktok"></i></div>
+            <h3>TikTok</h3>
+            <p>Disfruta de clips divertidos, momentos épicos de supervivencia, construcciones y memes de la comunidad.</p>
+            <span class="social-btn">Seguir en TikTok</span>
+        </a>
+
+        <a href="https://instagram.com" target="_blank" class="social-card instagram">
+            <div class="social-icon"><i class="fab fa-instagram"></i></div>
+            <h3>Instagram</h3>
+            <p>Explora galerías con las mejores fotos de los mundos, anuncios importantes y contenido visual diario.</p>
+            <span class="social-btn">Ver Perfil</span>
+        </a>
+
+        <a href="https://x.com" target="_blank" class="social-card twitter">
+            <div class="social-icon"><i class="fab fa-x-twitter"></i></div>
+            <h3>X (Twitter)</h3>
+            <p>Mantente al tanto en tiempo real de los estados de mantenimiento, cambios rápidos y avisos del servidor.</p>
+            <span class="social-btn">Seguir en X</span>
+        </a>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 SaturnCraft. Todos los derechos reservados. No afiliado con Mojang AB.</p>
+    </footer>
+
+</body>
+</html>
